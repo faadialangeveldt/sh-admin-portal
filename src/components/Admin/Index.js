@@ -45,7 +45,7 @@ function ResponsiveDrawer(props) {
     renderComponent = <Logout />
   }else if(title === 'Products'){
     renderComponent = <Products />
-  }else if(title === 'Client'){
+  }else if(title === 'Clients'){
     renderComponent = <Client />
   }else if(title === 'Team Members'){
     renderComponent = <Members />
