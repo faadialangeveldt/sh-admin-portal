@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -33,15 +34,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   
 
 function Members() {
-    const [loading, setLoading ] = useState("load")
+    const [loading, setLoading ] = useState(false)
     console.log(loading)
     const [ data, setData ] = useState([])
     useEffect(() => {
         const apiCall = async () => {
             try {
-                setLoading("loading")
+                setLoading(true)
                 const result = await axios.get('https://fakerapi.it/api/v1/persons?_quantity=10')
-                setLoading("loaded")
+                setLoading(false)
                 console.log(result.data.data)
                 setData(result.data.data)
             }catch(err) {
@@ -62,7 +63,7 @@ function Members() {
             <StyledTableCell >Image</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+       {loading === true ? <CircularProgress size={25} />:  <TableBody>
           {data.map((row) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
@@ -76,7 +77,7 @@ function Members() {
               
             </StyledTableRow>
           ))}
-        </TableBody>
+        </TableBody>}
       </Table>
     </TableContainer>
      );
